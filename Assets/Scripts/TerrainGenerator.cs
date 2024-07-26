@@ -7,7 +7,8 @@ public class TerrainGenerator : ScriptableObject
     public float BaseHeight = 8;
     public NoiseOctaveSettings[] Octaves;
     public NoiseOctaveSettings DomainWarp;
-    public BlockLayer[] BlockLayers;
+    public BlockLayer[] BlockLayers; // Массив для хранения информации о уровнях блоков
+    public BlockInfo[] BlockInfos;  // Массив для хранения информации о блоках
 
     [Serializable]
     public class NoiseOctaveSettings
@@ -23,7 +24,7 @@ public class TerrainGenerator : ScriptableObject
         public BlockType BlockType;
         public float MinHeight;
         public float MaxHeight;
-        public AnimationCurve HeightCurve = AnimationCurve.Linear(0, 0, 1, 1); // Кривая для сглаживания высоты
+        public AnimationCurve HeightCurve = AnimationCurve.Linear(0, 0, 1, 1);
     }
 
     private FastNoiseLite[] octaveNoises;
@@ -56,15 +57,9 @@ public class TerrainGenerator : ScriptableObject
                 float worldX = x * ChunkRenderer.BlockScale + xOffset;
                 float worldZ = z * ChunkRenderer.BlockScale + zOffset;
 
-                // Применение доменной деформации
                 warpNoise.DomainWarp(ref worldX, ref worldZ);
-
-                // Генерация основной высоты
                 float baseHeight = GetBaseHeight(worldX, worldZ);
-
-                // Применение октавного шума для добавления деталей
                 float detailNoise = GetDetailNoise(worldX, worldZ);
-
                 float height = baseHeight + detailNoise;
 
                 for (int y = 0; y < ChunkRenderer.ChunkHeight; y++)
@@ -109,6 +104,18 @@ public class TerrainGenerator : ScriptableObject
 
     private float GetDetailNoise(float x, float y)
     {
-        return warpNoise.GetNoise(x, y) * 2f; // Пример значения, можно настроить под ваши нужды
+        return warpNoise.GetNoise(x, y) * 2f;
+    }
+
+    public BlockInfo GetBlockInfo(BlockType blockType)
+    {
+        foreach (var info in BlockInfos)
+        {
+            if (info.Type == blockType)
+            {
+                return info;
+            }
+        }
+        return null;
     }
 }

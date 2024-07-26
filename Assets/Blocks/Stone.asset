@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 1
   PixelsOffset: {x: 16, y: 240}
+  Description: "\u041A\u0430\u043C\u0435\u043D\u044C"
   StepSound: {fileID: 0}
   TimetoBreak: 0.5
