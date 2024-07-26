@@ -50,8 +50,8 @@ public class GameWorld : MonoBehaviour
 
     private void LoadChunkAt(Vector2Int chunkPosition)
     {
-        int x;
-        int y;
+        //int x;
+        //int y;
         float xPos = chunkPosition.x * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
         float zPos = chunkPosition.y * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
 

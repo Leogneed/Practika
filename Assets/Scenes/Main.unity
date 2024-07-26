@@ -123,6 +123,65 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &35863024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 35863025}
+  - component: {fileID: 35863026}
+  m_Layer: 0
+  m_Name: Terrain normal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &35863025
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35863024}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 780433833}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &35863026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35863024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f62fb2d25829f8429bf42e5324c6031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BaseHeight: 8
+  Octaves:
+  - NoiseType: 0
+    Frequency: 0.25
+    Amplitude: 0.5
+  - NoiseType: 0
+    Frequency: 0.0333
+    Amplitude: 5
+  - NoiseType: 0
+    Frequency: 0.04
+    Amplitude: 3
+  DomainWarp:
+    NoiseType: 0
+    Frequency: 0.2
+    Amplitude: 1
 --- !u!1 &82530056
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +482,6 @@ GameObject:
   m_Component:
   - component: {fileID: 780433833}
   - component: {fileID: 780433832}
-  - component: {fileID: 780433834}
   m_Layer: 0
   m_Name: GameWorld
   m_TagString: Untagged
@@ -446,7 +504,7 @@ MonoBehaviour:
   ViewRadius: 5
   ChunkPrefab: {fileID: 3967133478065050321, guid: df7dd14fb5740344488d1ec01d017e96,
     type: 3}
-  Generator: {fileID: 780433834}
+  Generator: {fileID: 0}
 --- !u!4 &780433833
 Transform:
   m_ObjectHideFlags: 0
@@ -459,32 +517,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 35863025}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &780433834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 780433831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f62fb2d25829f8429bf42e5324c6031, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BaseHeight: 8
-  Octaves:
-  - noiseType: 0
-    Frequency: 0.25
-    Amplitude: 0.5
-  - noiseType: 0
-    Frequency: 0.0333
-    Amplitude: 5
-  - noiseType: 3
-    Frequency: 0.04
-    Amplitude: 3
 --- !u!1 &893685581
 GameObject:
   m_ObjectHideFlags: 0

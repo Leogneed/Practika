@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
@@ -12,6 +13,8 @@ public class ChunkRenderer : MonoBehaviour
 
     public ChunkData ChunkData;
     public GameWorld ParentWorld;
+
+    public BlockDataBase Blocks;
 
     private Mesh chunkMesh;
 
@@ -79,34 +82,34 @@ public class ChunkRenderer : MonoBehaviour
         if (GetBlockAtPosition(blockPosition + Vector3Int.right) == 0)
         {
             GenerateRightSide(blockPosition);
-            AddUvs(blockType);
+            AddUvs(blockType, Vector3Int.right);
         }
 
         if (GetBlockAtPosition(blockPosition + Vector3Int.left) == 0)
         {
             GenerateLeftSide(blockPosition);
-            AddUvs(blockType);
+            AddUvs(blockType, Vector3Int.left);
         }
         if (GetBlockAtPosition(blockPosition + Vector3Int.forward) == 0)
         {
             GenerateFrontSide(blockPosition);
-            AddUvs(blockType);
+            AddUvs(blockType, Vector3Int.one);
         }
         if (GetBlockAtPosition(blockPosition + Vector3Int.back) == 0)
         {
             GenerateBackSide(blockPosition);
-            AddUvs(blockType);
+            AddUvs(blockType, Vector3Int.zero);
         }
         if (GetBlockAtPosition(blockPosition + Vector3Int.up) == 0)
         {
             GenerateTopSide(blockPosition);
-            AddUvs(blockType);
+            AddUvs(blockType, Vector3Int.up);
         }
 
         if (GetBlockAtPosition(blockPosition + Vector3Int.down) == 0)
         {
             GenerateBottomSide(blockPosition);
-            AddUvs(blockType);
+            AddUvs(blockType, Vector3Int.down);
         }
     }
 
@@ -229,25 +232,43 @@ public class ChunkRenderer : MonoBehaviour
         triangles.Add(verticies.Count - 2);
     }
 
-    private void AddUvs(BlockType blockType)
+    private void AddUvs(BlockType blockType, Vector3Int normal)
     {
         Vector2 uv;
-        if(blockType == BlockType.Dirt)
+
+        BlockInfo info = Blocks.GetInfo(blockType);
+
+        if (info != null)
         {
-            uv = new Vector2(32f / 256, 240f / 256);
-        }
-        else if (blockType == BlockType.Stone)
-        {
-            uv = new Vector2(16f / 256, 240f / 256);
-        }
-        else if (blockType == BlockType.Bedrock)
-        {
-            uv = new Vector2(64f / 256, 240f / 256);
+            uv = info.GetPixelOffset(normal) / 256;
         }
         else
         {
-            uv = new Vector2(160f / 256, 224f / 256);
+            uv = new Vector2(160f / 256, 240f / 256);
         }
+
+        //if (blockType == BlockType.Grass)
+        //{
+        //    uv = normal == Vector2Int.up ? new Vector2(0, 240f / 256) :
+        //         normal == Vector2Int.down ? new Vector2(32f / 256, 240f / 256) :
+        //         new Vector2(32f / 256, 240f / 256);
+        //}
+        //else if(blockType == BlockType.Dirt)
+        //{
+        //    uv = new Vector2(32f / 256, 240f / 256);
+        //}
+        //else if (blockType == BlockType.Stone)
+        //{
+        //    uv = new Vector2(16f / 256, 240f / 256);
+        //}
+        //else if (blockType == BlockType.Bedrock)
+        //{
+        //    uv = new Vector2(16f / 256, 224f / 256);
+        //}
+        //else
+        //{
+        //    uv = new Vector2(160 / 256, 240f / 256);
+        //}
 
         for (int i = 0; i<4; i++)
         {

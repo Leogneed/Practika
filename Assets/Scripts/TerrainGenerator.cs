@@ -53,17 +53,22 @@ public class TerrainGenerator : MonoBehaviour
 
                 float height = GetHeight(worldX, worldZ);
                 float grassLayerHeight = 1 + octaveNoises[0].GetNoise(worldX, worldZ) * 2f;
+                float dirtLayerHeight = 0.9f + octaveNoises[0].GetNoise(worldX, worldZ) * 2f;
                 float bedrockLayerHeight = 0.5f + octaveNoises[0].GetNoise(worldX, worldZ) * 2f;
 
                 for (int y = 0; y < height / ChunkRenderer.BlockScale; y++)
                 {
                     if (height - y * ChunkRenderer.BlockScale < grassLayerHeight) 
                     {
+                        result[x, y, z] = BlockType.Grass;
+                    }
+                    else if (height - y * ChunkRenderer.BlockScale < dirtLayerHeight)
+                    {
                         result[x, y, z] = BlockType.Dirt;
                     }
                     else if(y * ChunkRenderer.BlockScale < bedrockLayerHeight)
                     {
-                        result[x, y, z] = BlockType.Stone;
+                        result[x, y, z] = BlockType.Bedrock;
                     }
                     else
                     {
