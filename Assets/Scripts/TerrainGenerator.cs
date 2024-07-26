@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
 
-public class TerrainGenerator : MonoBehaviour 
+[CreateAssetMenu(menuName = "Terrain generator")]
+public class TerrainGenerator : ScriptableObject
 {
     public float BaseHeight = 8;
     public NoiseOctaveSettings[] Octaves;
     public NoiseOctaveSettings DomainWarp;
+    public BlockLayer[] BlockLayers;
 
     [Serializable]
     public class NoiseOctaveSettings
@@ -15,14 +17,17 @@ public class TerrainGenerator : MonoBehaviour
         public float Amplitude = 1;
     }
 
-    private FastNoiseLite[] octaveNoises;
-
-    private FastNoiseLite warpNoise;
-
-    public void Awake()
+    [Serializable]
+    public class BlockLayer
     {
-        Init();
+        public BlockType BlockType;
+        public float MinHeight;
+        public float MaxHeight;
+        public AnimationCurve HeightCurve = AnimationCurve.Linear(0, 0, 1, 1); // Кривая для сглаживания высоты
     }
+
+    private FastNoiseLite[] octaveNoises;
+    private FastNoiseLite warpNoise;
 
     public void Init()
     {
@@ -44,35 +49,44 @@ public class TerrainGenerator : MonoBehaviour
     {
         var result = new BlockType[ChunkRenderer.ChunkWidth, ChunkRenderer.ChunkHeight, ChunkRenderer.ChunkWidth];
 
-        for (int x = 0; x < ChunkRenderer.ChunkWidth; x++) 
+        for (int x = 0; x < ChunkRenderer.ChunkWidth; x++)
         {
-            for (int z = 0; z < ChunkRenderer.ChunkWidth; z++) 
+            for (int z = 0; z < ChunkRenderer.ChunkWidth; z++)
             {
                 float worldX = x * ChunkRenderer.BlockScale + xOffset;
                 float worldZ = z * ChunkRenderer.BlockScale + zOffset;
 
-                float height = GetHeight(worldX, worldZ);
-                float grassLayerHeight = 1 + octaveNoises[0].GetNoise(worldX, worldZ) * 2f;
-                float dirtLayerHeight = 0.9f + octaveNoises[0].GetNoise(worldX, worldZ) * 2f;
-                float bedrockLayerHeight = 0.5f + octaveNoises[0].GetNoise(worldX, worldZ) * 2f;
+                // Применение доменной деформации
+                warpNoise.DomainWarp(ref worldX, ref worldZ);
 
-                for (int y = 0; y < height / ChunkRenderer.BlockScale; y++)
+                // Генерация основной высоты
+                float baseHeight = GetBaseHeight(worldX, worldZ);
+
+                // Применение октавного шума для добавления деталей
+                float detailNoise = GetDetailNoise(worldX, worldZ);
+
+                float height = baseHeight + detailNoise;
+
+                for (int y = 0; y < ChunkRenderer.ChunkHeight; y++)
                 {
-                    if (height - y * ChunkRenderer.BlockScale < grassLayerHeight) 
+                    float currentHeight = y * ChunkRenderer.BlockScale;
+
+                    if (currentHeight <= height)
                     {
-                        result[x, y, z] = BlockType.Grass;
-                    }
-                    else if (height - y * ChunkRenderer.BlockScale < dirtLayerHeight)
-                    {
-                        result[x, y, z] = BlockType.Dirt;
-                    }
-                    else if(y * ChunkRenderer.BlockScale < bedrockLayerHeight)
-                    {
-                        result[x, y, z] = BlockType.Bedrock;
-                    }
-                    else
-                    {
-                        result[x, y, z] = BlockType.Stone;
+                        BlockType blockType = BlockType.Air;
+
+                        foreach (var layer in BlockLayers)
+                        {
+                            if (currentHeight >= layer.MinHeight && currentHeight <= layer.MaxHeight)
+                            {
+                                float t = Mathf.InverseLerp(layer.MinHeight, layer.MaxHeight, currentHeight);
+                                float heightMultiplier = layer.HeightCurve.Evaluate(t);
+                                blockType = layer.BlockType;
+                                break;
+                            }
+                        }
+
+                        result[x, y, z] = blockType;
                     }
                 }
             }
@@ -80,18 +94,21 @@ public class TerrainGenerator : MonoBehaviour
         return result;
     }
 
-    private float GetHeight(float x, float y)
+    private float GetBaseHeight(float x, float y)
     {
-        warpNoise.DomainWarp(ref x, ref y);
-
         float result = BaseHeight;
 
         for (int i = 0; i < Octaves.Length; i++)
         {
             float noise = octaveNoises[i].GetNoise(x, y);
-            result += noise * Octaves[i].Amplitude / 2;
+            result += noise * Octaves[i].Amplitude;
         }
 
         return result;
+    }
+
+    private float GetDetailNoise(float x, float y)
+    {
+        return warpNoise.GetNoise(x, y) * 2f; // Пример значения, можно настроить под ваши нужды
     }
 }

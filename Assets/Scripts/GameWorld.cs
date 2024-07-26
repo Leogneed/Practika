@@ -17,6 +17,8 @@ public class GameWorld : MonoBehaviour
     void Start()
     {
         Camera = Camera.main;
+
+        Generator.Init();
         StartCoroutine(Generate(false));
     }
 
