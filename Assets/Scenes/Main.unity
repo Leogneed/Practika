@@ -443,6 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27c0644c072f524f83bf827ba4fdf76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ViewRadius: 5
   ChunkPrefab: {fileID: 3967133478065050321, guid: df7dd14fb5740344488d1ec01d017e96,
     type: 3}
   Generator: {fileID: 780433834}
@@ -473,11 +474,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f62fb2d25829f8429bf42e5324c6031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseHeight: 10
+  BaseHeight: 8
   Octaves:
-  - noiseType: 3
-    Frequency: 0.2
-    Amplitude: 1
+  - noiseType: 0
+    Frequency: 0.25
+    Amplitude: 0.5
+  - noiseType: 0
+    Frequency: 0.0333
+    Amplitude: 5
   - noiseType: 3
     Frequency: 0.04
     Amplitude: 3

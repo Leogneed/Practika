@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameWorld : MonoBehaviour
 {
-    private const int ViewRadius = 5;
+    public int ViewRadius = 10;
 
     public Dictionary<Vector2Int, ChunkData> ChunkDatas = new Dictionary<Vector2Int, ChunkData>();
     public ChunkRenderer ChunkPrefab;
@@ -33,6 +33,19 @@ public class GameWorld : MonoBehaviour
                 if (wait) yield return new WaitForSecondsRealtime(0.2f);
             }
         }
+    }
+    [ContextMenu("Regenerate world")]
+    public void Regenerate()
+    {
+        Generator.Init();
+        foreach (var chunkData in ChunkDatas)
+        {
+            Destroy(chunkData.Value.Renderer.gameObject);
+        }
+
+        ChunkDatas.Clear();
+
+        StartCoroutine(Generate(false));
     }
 
     private void LoadChunkAt(Vector2Int chunkPosition)

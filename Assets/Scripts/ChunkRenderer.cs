@@ -240,6 +240,10 @@ public class ChunkRenderer : MonoBehaviour
         {
             uv = new Vector2(16f / 256, 240f / 256);
         }
+        else if (blockType == BlockType.Bedrock)
+        {
+            uv = new Vector2(64f / 256, 240f / 256);
+        }
         else
         {
             uv = new Vector2(160f / 256, 224f / 256);
