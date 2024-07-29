@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +5,15 @@ public class MenuPause : MonoBehaviour
 {
     public bool PauseGame;
     public GameObject pauseGameMenu;
+    public GameObject player; // Добавьте ссылку на игрока
 
+    private MonoBehaviour cameraController;
+
+    private void Start()
+    {
+        // Предположим, что у вашего игрока есть компонент камеры, который вы хотите отключить
+        cameraController = player.GetComponent<MonoBehaviour>();
+    }
 
     private void Update()
     {
@@ -29,6 +35,9 @@ public class MenuPause : MonoBehaviour
         pauseGameMenu.SetActive(false);
         Time.timeScale = 1.0f;
         PauseGame = false;
+        Cursor.lockState = CursorLockMode.Locked; // Заблокировать курсор
+        Cursor.visible = false; // Скрыть курсор
+        cameraController.enabled = true; // Включить управление камерой
     }
 
     public void Pause()
@@ -36,6 +45,9 @@ public class MenuPause : MonoBehaviour
         pauseGameMenu.SetActive(true);
         Time.timeScale = 0f;
         PauseGame = true;
+        Cursor.lockState = CursorLockMode.None; // Разблокировать курсор
+        Cursor.visible = true; // Показать курсор
+        cameraController.enabled = false; // Отключить управление камерой
     }
 
     public void LoadMenu()
