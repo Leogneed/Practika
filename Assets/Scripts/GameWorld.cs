@@ -13,6 +13,9 @@ public class GameWorld : MonoBehaviour
     private Vector2Int currentPlayerChunk;
     public TerrainGenerator Generator;
 
+    public InventorySO inventory;
+    public BlockInfo block1;
+
 
     void Start()
     {
@@ -20,6 +23,10 @@ public class GameWorld : MonoBehaviour
 
         Generator.Init();
         StartCoroutine(Generate(false));
+
+
+        
+        
     }
 
     private IEnumerator Generate(bool wait)
@@ -86,6 +93,7 @@ public class GameWorld : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
+            inventory.AddItem(block1, 1);
             bool isDestroying = Input.GetMouseButtonDown(0);
 
             Ray ray = Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f));
