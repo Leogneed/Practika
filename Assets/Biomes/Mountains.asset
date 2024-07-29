@@ -154,4 +154,8 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  BlockInfos: []
+  BlockInfos:
+  - {fileID: 11400000, guid: 4b36760abf50619488c07a63abeaf3b7, type: 2}
+  - {fileID: 11400000, guid: 5baf12dd2709f79419e3c1a75512fff1, type: 2}
+  - {fileID: 11400000, guid: 543d814340632f34d9834c8c3c10eed0, type: 2}
+  - {fileID: 11400000, guid: c653be63bd4fa904ebdca5e232cfcdd7, type: 2}

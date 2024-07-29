@@ -3,22 +3,40 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InventoryController : MonoBehaviour
 {
     [SerializeField]
     private InventoryPage inventory;
 
+    public GameObject ExitButton;
+
     [SerializeField]
     private InventorySO inventoryData;
 
     public List<InventoryItemStruct> inventoryItems = new List<InventoryItemStruct>();
 
+    private MonoBehaviour cameraController;
+    private MonoBehaviour GameWorld;
+
+    public GameObject player; // Добавьте ссылку на игрока
+    public GameObject game;
 
     public void Start()
     {
         PrepareUI();
         PrepareInventoryData();
+
+        cameraController = player.GetComponent<MonoBehaviour>();
+
+        GameWorld = game.GetComponent<MonoBehaviour>();
+    }
+
+    public void LoadMenu()
+    {
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene("Menu");
     }
 
     private void PrepareInventoryData()
@@ -66,7 +84,7 @@ public class InventoryController : MonoBehaviour
             return;
         }
         BlockInfo item = inventoryItemStruct.item;
-        inventory.UpdateDescription(obj, item.ItemImage, item.name, item.Description);
+        inventory.UpdateDescription(obj, item.ItemImage, item.Name, item.Description);
     }
 
     public void Update()
@@ -75,8 +93,13 @@ public class InventoryController : MonoBehaviour
         {
             if(inventory.isActiveAndEnabled == false)
             {
-                inventory.Show();  
-                foreach(var item in inventoryData.GetCurrentInventoryState())
+                Time.timeScale = 0f;
+                inventory.Show();
+                ExitButton.SetActive(true);
+                Cursor.lockState = CursorLockMode.None; // Разблокировать курсор
+                cameraController.enabled = false; // Отключить управление камерой
+                GameWorld.enabled = false;
+                foreach (var item in inventoryData.GetCurrentInventoryState())
                 {
                     inventory.UpdateData(item.Key,
                         item.Value.item.ItemImage,
@@ -86,6 +109,11 @@ public class InventoryController : MonoBehaviour
             else
             {
                 inventory.Hide();
+                ExitButton.SetActive(false);
+                Time.timeScale = 1.0f;
+                Cursor.lockState = CursorLockMode.Locked; // Заблокировать курсор
+                cameraController.enabled = true; // Включить управление камерой
+                GameWorld.enabled = true;
             }
         }
     }
