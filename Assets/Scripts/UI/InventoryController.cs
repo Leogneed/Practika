@@ -89,7 +89,7 @@ public class InventoryController : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyUp(KeyCode.I))
+        if (Input.GetKeyUp(KeyCode.I) || Input.GetKeyUp(KeyCode.Escape))
         {
             if(inventory.isActiveAndEnabled == false)
             {

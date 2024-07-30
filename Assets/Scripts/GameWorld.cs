@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameWorld : MonoBehaviour
@@ -14,7 +15,9 @@ public class GameWorld : MonoBehaviour
     public TerrainGenerator Generator;
 
     public InventorySO inventory;
-    public BlockInfo block1;
+    public BlockInfo blockStone;
+    public BlockInfo blockDirt;
+    public BlockInfo blockBedrock;
 
 
     void Start()
@@ -23,10 +26,6 @@ public class GameWorld : MonoBehaviour
 
         Generator.Init();
         StartCoroutine(Generate(false));
-
-
-        
-        
     }
 
     private IEnumerator Generate(bool wait)
@@ -59,8 +58,6 @@ public class GameWorld : MonoBehaviour
 
     private void LoadChunkAt(Vector2Int chunkPosition)
     {
-        //int x;
-        //int y;
         float xPos = chunkPosition.x * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
         float zPos = chunkPosition.y * ChunkRenderer.ChunkWidth * ChunkRenderer.BlockScale;
 
@@ -93,7 +90,7 @@ public class GameWorld : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
-            inventory.AddItem(block1, 1);
+            
             bool isDestroying = Input.GetMouseButtonDown(0);
 
             Ray ray = Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f));
@@ -104,10 +101,14 @@ public class GameWorld : MonoBehaviour
                 if (isDestroying)
                 {
                     blockCenter = hitInfo.point - hitInfo.normal * ChunkRenderer.BlockScale / 2;
+                    Debug.Log("Сломали");
+
                 }
                 else
                 {
                     blockCenter = hitInfo.point + hitInfo.normal * ChunkRenderer.BlockScale / 2;
+                    Debug.Log("Поставили");
+
                 }
 
                 Vector3Int blockWorldPos = Vector3Int.FloorToInt(blockCenter / ChunkRenderer.BlockScale);
@@ -117,6 +118,38 @@ public class GameWorld : MonoBehaviour
                     Vector3Int chunkOrigin = new Vector3Int(chunkPos.x, 0, chunkPos.y) * ChunkRenderer.ChunkWidth;
                     if (isDestroying)
                     {
+
+                        var blockType = chunkData.Blocks[blockWorldPos.x - chunkOrigin.x, blockWorldPos.y - chunkOrigin.y, blockWorldPos.z - chunkOrigin.z];
+
+                        var blockID = 0;
+                        for (int i = 0; i < Generator.BlockInfos.Length; ++i)
+                        {
+                            if(blockType == Generator.BlockInfos[i].Type)
+                            {
+                                blockID = i;
+                                break;
+                            }
+                        }
+                        var block = Generator.BlockInfos[blockID];
+
+                        inventory.AddItem(block, 1);
+                        //if (blockType == BlockType.Stone)
+                        //{
+                        //    inventory.AddItem(blockStone, 1);
+                        //}
+                        //else if (blockType == BlockType.Dirt)
+                        //{
+                        //    inventory.AddItem(blockDirt, 1);
+                        //}
+                        //else if (blockType == BlockType.Bedrock)
+                        //{
+                        //    inventory.AddItem(blockBedrock, 1);
+                        //}
+                        //else if (blockType == BlockType.Grass)
+                        //{
+                        //    inventory.AddItem(blockDirt, 1);
+                        //}
+
                         chunkData.Renderer.DestroyBlock(blockWorldPos - chunkOrigin);
                     }
                     else

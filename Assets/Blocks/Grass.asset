@@ -17,7 +17,7 @@ MonoBehaviour:
   StepSound: {fileID: 0}
   TimetoBreak: 0.3
   <Name>k__BackingField: "\u0422\u0440\u0430\u0432\u0430"
-  <Description>k__BackingField: 
+  <Description>k__BackingField: "\u0442\u0430 \u0431\u043B\u0438\u043D"
   <ItemImage>k__BackingField: {fileID: 0}
   PixelOffsetUp: {x: 0, y: 240}
   PixelOffsetDown: {x: 32, y: 240}
