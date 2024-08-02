@@ -15,9 +15,9 @@ public class GameWorld : MonoBehaviour
     public TerrainGenerator Generator;
 
     public InventorySO inventory;
-    public BlockInfo blockStone;
-    public BlockInfo blockDirt;
-    public BlockInfo blockBedrock;
+    //public BlockInfo blockStone;
+    //public BlockInfo blockDirt;
+    //public BlockInfo blockBedrock;
 
 
     void Start()
@@ -133,22 +133,7 @@ public class GameWorld : MonoBehaviour
                         var block = Generator.BlockInfos[blockID];
 
                         inventory.AddItem(block, 1);
-                        //if (blockType == BlockType.Stone)
-                        //{
-                        //    inventory.AddItem(blockStone, 1);
-                        //}
-                        //else if (blockType == BlockType.Dirt)
-                        //{
-                        //    inventory.AddItem(blockDirt, 1);
-                        //}
-                        //else if (blockType == BlockType.Bedrock)
-                        //{
-                        //    inventory.AddItem(blockBedrock, 1);
-                        //}
-                        //else if (blockType == BlockType.Grass)
-                        //{
-                        //    inventory.AddItem(blockDirt, 1);
-                        //}
+                        
 
                         chunkData.Renderer.DestroyBlock(blockWorldPos - chunkOrigin);
                     }

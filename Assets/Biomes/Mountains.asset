@@ -12,25 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f62fb2d25829f8429bf42e5324c6031, type: 3}
   m_Name: Mountains
   m_EditorClassIdentifier: 
-  BaseHeight: 8
+  BaseHeight: 12
   Octaves:
   - NoiseType: 3
     Frequency: 0.25
     Amplitude: 0.5
   - NoiseType: 3
     Frequency: 0.0333
-    Amplitude: 10
+    Amplitude: 10.6
   - NoiseType: 3
     Frequency: 0.04
-    Amplitude: 3
+    Amplitude: 5.5
   DomainWarp:
     NoiseType: 3
     Frequency: 0.06
     Amplitude: 15
   BlockLayers:
   - BlockType: 4
-    MinHeight: 3.9
-    MaxHeight: 4
+    MinHeight: 10
+    MaxHeight: 25
     HeightCurve:
       serializedVersion: 2
       m_Curve:
@@ -56,35 +56,26 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   - BlockType: 2
-    MinHeight: 2
-    MaxHeight: 3.9
+    MinHeight: 7
+    MaxHeight: 10
     HeightCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0
         outWeight: 0
-      - serializedVersion: 3
-        time: 0.5534082
-        value: 0.82983506
-        inSlope: 1.0000001
-        outSlope: 1.0000001
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
         value: 1
         inSlope: 1
         outSlope: 1
-        tangentMode: 0
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0
         outWeight: 0
@@ -92,35 +83,26 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   - BlockType: 1
-    MinHeight: 1
-    MaxHeight: 2
+    MinHeight: 6
+    MaxHeight: 7
     HeightCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0
         outWeight: 0
-      - serializedVersion: 3
-        time: 0.85263944
-        value: 0.3558036
-        inSlope: 1
-        outSlope: 1
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
         value: 1
         inSlope: 1
         outSlope: 1
-        tangentMode: 0
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0
         outWeight: 0
@@ -128,17 +110,17 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   - BlockType: 3
-    MinHeight: 0
-    MaxHeight: 1
+    MinHeight: 5
+    MaxHeight: 6
     HeightCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 0
+        inSlope: 1
         outSlope: 1
-        tangentMode: 0
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0
         outWeight: 0
@@ -146,8 +128,35 @@ MonoBehaviour:
         time: 1
         value: 1
         inSlope: 1
-        outSlope: 0
-        tangentMode: 0
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - BlockType: 5
+    MinHeight: 0
+    MaxHeight: 5
+    HeightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0
         outWeight: 0
@@ -159,3 +168,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5baf12dd2709f79419e3c1a75512fff1, type: 2}
   - {fileID: 11400000, guid: 543d814340632f34d9834c8c3c10eed0, type: 2}
   - {fileID: 11400000, guid: c653be63bd4fa904ebdca5e232cfcdd7, type: 2}
+  - {fileID: 11400000, guid: dc60be2b702a8b74e9665d5858f198fc, type: 2}

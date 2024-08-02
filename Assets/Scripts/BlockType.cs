@@ -5,4 +5,5 @@ public enum BlockType : byte
     Dirt = 2,
     Bedrock = 3,
     Grass = 4,
+    Granit = 5,
 }

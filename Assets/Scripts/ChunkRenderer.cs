@@ -244,7 +244,7 @@ public class ChunkRenderer : MonoBehaviour
         }
         else
         {
-            uv = new Vector2(160f / 256, 240f / 256);
+            uv = new Vector2(224f / 256, 240f / 256);
         }
 
         //if (blockType == BlockType.Grass)

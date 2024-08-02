@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 55e64e617a8bfff4ba846574e2651eb9, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.26792946, g: 0.463935, b: 0.61439043, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -178,7 +178,7 @@ Transform:
   m_GameObject: {fileID: 82530056}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 13.91, z: 0}
+  m_LocalPosition: {x: 0, y: 31.3, z: 0}
   m_LocalScale: {x: 0.5227, y: 0.5227, z: 0.5227}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -600,7 +600,9 @@ MonoBehaviour:
     type: 3}
   Generator: {fileID: 11400000, guid: 63f368411fba0d441bc847dd353ad583, type: 2}
   inventory: {fileID: 11400000, guid: e8806a8bee00db848b5277238fde8a6d, type: 2}
-  block1: {fileID: 11400000, guid: 543d814340632f34d9834c8c3c10eed0, type: 2}
+  blockStone: {fileID: 0}
+  blockDirt: {fileID: 0}
+  blockBedrock: {fileID: 0}
 --- !u!4 &780433833
 Transform:
   m_ObjectHideFlags: 0
@@ -1507,8 +1509,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 140.26031, y: -325.13443}
-  m_SizeDelta: {x: 280.52063, y: 192.75288}
+  m_AnchoredPosition: {x: 139.11, y: -1707.1978}
+  m_SizeDelta: {x: 269.6395, y: 3414.3955}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &881066761247103135
 MonoBehaviour:
@@ -2851,8 +2853,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8432899191802464555}
   m_HandleRect: {fileID: 1313410653604999947}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.35178992
+  m_Value: 1
+  m_Size: 0.1904492
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3149,8 +3151,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
